@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Typography } from '@material-ui/core'
 import './App.css';
 import FlexContainer from "./components/common/FlexContainer";
+import GifsContainer from "./components/gifs/GifsContainer";
 import SearchContainer from "./components/search/SearchContainer";
 
 const AppContainer = styled(FlexContainer)`
@@ -25,6 +26,7 @@ function App() {
         Giphy Searcher
       </PaddedTypography>
       <SearchContainer />
+      <GifsContainer />
     </AppContainer>
   );
 }
