@@ -6,10 +6,12 @@ import './App.css';
 import FlexContainer from "./components/common/FlexContainer";
 import GifsContainer from "./components/gifs/GifsContainer";
 import SearchContainer from "./components/search/SearchContainer";
+import LoadMoreButton from "./components/LoadMoreButton";
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
   width: 80%;
+  align-items: center;  
   //background-image: linear-gradient(white, lightblue);
 `
 
@@ -27,6 +29,7 @@ function App() {
       </PaddedTypography>
       <SearchContainer />
       <GifsContainer />
+      <LoadMoreButton />
     </AppContainer>
   );
 }
