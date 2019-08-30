@@ -12,7 +12,7 @@ import giphy6 from "../../gifs/giphy6.gif";
 
 const StyledContainer = styled(FlexContainer)`
   margin: 10px;
-  width: 100%; 
+  width: 100%;
 `;
 
 const gifArray = [giphy1, giphy2, giphy3, giphy4, giphy5, giphy6];
