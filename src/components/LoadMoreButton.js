@@ -9,9 +9,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export default function LoadMoreButton() {
+export default function LoadMoreButton(props) {
   return (
-    <StyledButton variant="contained" color="primary">
+    <StyledButton variant="contained" color="primary" onClick={props.clickHandler}>
       Load More...
     </StyledButton>
   )
