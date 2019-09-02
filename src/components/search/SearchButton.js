@@ -8,9 +8,13 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export default function SearchButton() {
+export default function SearchButton(props) {
   return (
-    <StyledButton variant="contained" color="primary">
+    <StyledButton
+      variant="contained"
+      color="primary"
+      onClick={props.clickHandler}
+    >
       Search
     </StyledButton>
   )

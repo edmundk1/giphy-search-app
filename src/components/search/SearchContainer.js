@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from 'react';
+import React, {useState} from 'react';
 
 import FlexContainer from "../common/FlexContainer";
 import SearchBar from "./SearchBar";
@@ -9,11 +9,22 @@ const SearchComponentsContainer = styled(FlexContainer)`
   width: 100%;
 `;
 
-export default function SearchContainer() {
+export default function SearchContainer(props) {
+  const [searchString, setSearchString] = useState("");
+
+  const handleSearchChange = (search) => {
+    setSearchString(search);
+  };
+
+  const handleClick = () => {
+    props.handleSearch(searchString);
+  };
+
+
   return (
     <SearchComponentsContainer>
-      <SearchBar />
-      <SearchButton />
+      <SearchBar value={searchString} searchHandler={handleSearchChange} />
+      <SearchButton clickHandler={handleClick} />
     </SearchComponentsContainer>
   )
 }

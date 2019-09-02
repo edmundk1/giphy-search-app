@@ -6,7 +6,7 @@ import FlexContainer from "./components/common/FlexContainer";
 import GifsContainer from "./components/gifs/GifsContainer";
 import SearchContainer from "./components/search/SearchContainer";
 import LoadMoreButton from "./components/LoadMoreButton";
-import getTrendingGifs from "./managers/APIManager";
+import { getTrendingGifs, getSearchGifs } from "./managers/APIManager";
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
@@ -22,8 +22,10 @@ const PaddedTypography = styled(Typography)`
 `;
 
 function App() {
+  const initialOffset = 0;
   const [displayedGifs, setDiplayedGifs] = useState([]);
   const [currentOffset, setCurrentOffset] = useState(0);
+  const [currentSearch, setCurrentSearch] = useState("");
 
   const incrementOffset = () => {
     let increment = 6;
@@ -31,21 +33,31 @@ function App() {
     setCurrentOffset(tempOffset)
   };
 
+  const handleSearch = async (search) => {
+    setCurrentOffset(initialOffset);
+    setCurrentSearch(search);
+    let searchGifs = await getSearchGifs(initialOffset, search);
+
+    setDiplayedGifs(searchGifs);
+
+    incrementOffset();
+  };
+
   const handleLoadMore = async () => {
-    let additionalGifs = await getTrendingGifs(currentOffset);
+    let additionalGifs = await getSearchGifs(currentOffset, currentSearch);
     let tempDisplayedGifs = displayedGifs.concat(additionalGifs);
     setDiplayedGifs(tempDisplayedGifs);
 
     incrementOffset();
   };
 
+  const MoreButton = currentSearch ? (<LoadMoreButton clickHandler={handleLoadMore} />) : null;
+
   useEffect(() => {
     const getInitialTrendingGifs = async () => {
-      const initialTrendingGifs = await getTrendingGifs(0);
+      const initialTrendingGifs = await getTrendingGifs(initialOffset);
 
       setDiplayedGifs(initialTrendingGifs);
-
-      incrementOffset();
     };
 
     getInitialTrendingGifs();
@@ -56,9 +68,9 @@ function App() {
       <PaddedTypography variant="h2">
         Giphy Searcher
       </PaddedTypography>
-      <SearchContainer />
+      <SearchContainer handleSearch={handleSearch} />
       <GifsContainer gifArray={displayedGifs}/>
-      <LoadMoreButton clickHandler={handleLoadMore}/>
+      {MoreButton}
     </AppContainer>
   );
 }
