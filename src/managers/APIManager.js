@@ -12,13 +12,4 @@ const getAPIEndPoint = async (baseEndpoint, params) => {
   return data;
 };
 
-const getTrendingGifs = async (offset) => {
-  let baseEndpoint = "http://api.giphy.com/v1/gifs/trending";
-  let limit = 6;
-  let params = {"limit": limit, "offset": offset};
-  let results = await getAPIEndPoint(baseEndpoint, params);
-
-  return results;
-};
-
-export default getTrendingGifs;
+export default getAPIEndPoint;

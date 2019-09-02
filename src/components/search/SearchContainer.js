@@ -11,9 +11,9 @@ const SearchComponentsContainer = styled(FlexContainer)`
 
 export default function SearchContainer() {
   return (
-    <FlexContainer>
+    <SearchComponentsContainer>
       <SearchBar />
       <SearchButton />
-    </FlexContainer>
+    </SearchComponentsContainer>
   )
 }
