@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import React from "react";
-import FlexContainer from "../common/FlexContainer";
+import styled from 'styled-components';
+import React from 'react';
+import FlexContainer from '../common/FlexContainer';
 
 const StyledComponentContainer = styled(FlexContainer)`
   width: 350px;
@@ -21,5 +21,5 @@ export default function GifComponent(props) {
     <StyledComponentContainer>
       <StyledImg src={props.gifSrc} />
     </StyledComponentContainer>
-  )
+  );
 }

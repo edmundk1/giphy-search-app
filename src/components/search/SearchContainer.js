@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import React, {useState} from 'react';
+import styled from 'styled-components';
+import React, { useState } from 'react';
 
-import FlexContainer from "../common/FlexContainer";
-import SearchBar from "./SearchBar";
-import SearchButton from "./SearchButton";
+import FlexContainer from '../common/FlexContainer';
+import SearchBar from './SearchBar';
+import SearchButton from './SearchButton';
 
 const SearchComponentsContainer = styled(FlexContainer)`
   flex: auto;
@@ -13,13 +13,13 @@ const SearchComponentsContainer = styled(FlexContainer)`
 `;
 
 export default function SearchContainer(props) {
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState('');
   const [isError, setIsError] = useState(false);
 
   const isSearchValid = (search) => {
-    const whiteSpaceRegex = new RegExp("^\\s+$");
-    const whiteSpaceRemovedStr = search.replace(whiteSpaceRegex, "");
-    return whiteSpaceRemovedStr.length > 0
+    const whiteSpaceRegex = new RegExp('^\\s+$');
+    const whiteSpaceRemovedStr = search.replace(whiteSpaceRegex, '');
+    return whiteSpaceRemovedStr.length > 0;
   };
 
   const handleSearchChange = (search) => {
@@ -27,7 +27,7 @@ export default function SearchContainer(props) {
   };
 
   const handleClick = () => {
-    let isValid = isSearchValid(searchString);
+    const isValid = isSearchValid(searchString);
     if (isValid) {
       setIsError(false);
       props.handleSearch(searchString);
@@ -52,5 +52,5 @@ export default function SearchContainer(props) {
       />
       <SearchButton clickHandler={handleClick} />
     </SearchComponentsContainer>
-  )
+  );
 }
