@@ -36,9 +36,15 @@ export default function SearchContainer(props) {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleClick();
+    }
+  };
+
 
   return (
-    <SearchComponentsContainer>
+    <SearchComponentsContainer onKeyPress={handleKeyPress}>
       <SearchBar
         value={searchString}
         searchHandler={handleSearchChange}
