@@ -6,7 +6,10 @@ import SearchBar from "./SearchBar";
 import SearchButton from "./SearchButton";
 
 const SearchComponentsContainer = styled(FlexContainer)`
-  width: 100%;
+  flex: auto;
+  width: 80%;
+  height: fit-content;
+  margin: 10px;
 `;
 
 export default function SearchContainer(props) {

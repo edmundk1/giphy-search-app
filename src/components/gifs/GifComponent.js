@@ -3,8 +3,8 @@ import React from "react";
 import FlexContainer from "../common/FlexContainer";
 
 const StyledComponentContainer = styled(FlexContainer)`
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   margin: auto;
   margin-top: 10px;
 `;
@@ -12,8 +12,8 @@ const StyledComponentContainer = styled(FlexContainer)`
 const StyledImg = styled.img`
   object-fit: cover;
   
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
 `;
 
 export default function GifComponent(props) {
