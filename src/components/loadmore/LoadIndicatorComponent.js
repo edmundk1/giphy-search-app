@@ -4,7 +4,7 @@ import React from 'react';
 
 const PaddedCircularProgress = styled(CircularProgress)`
   && {
-    padding: 120px;
+    padding: 10px;
   }
 `;
 
