@@ -5,7 +5,7 @@ import './App.css';
 import FlexContainer from "./components/common/FlexContainer";
 import GifsContainer from "./components/gifs/GifsContainer";
 import SearchContainer from "./components/search/SearchContainer";
-import LoadMoreButton from "./components/LoadMoreButton";
+import LoadMoreButton from "./components/loadmore/LoadMoreButton";
 import { getTrendingGifs, getSearchGifs } from "./managers/APIManager";
 
 const AppContainer = styled(FlexContainer)`
