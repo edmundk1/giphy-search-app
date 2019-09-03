@@ -1,32 +1,32 @@
-let apiKey = "aXvyXMehTPDEv8CqiRnyhmVwbTwCaX0M";
+const apiKey = 'aXvyXMehTPDEv8CqiRnyhmVwbTwCaX0M';
 
 const getAPIEndPoint = async (baseEndpoint, params) => {
-  let paramKeys = Object.keys(params);
-  let paramsToUrl = "";
+  const paramKeys = Object.keys(params);
+  let paramsToUrl = '';
   paramKeys.forEach((paramKey) => {
-    paramsToUrl = paramsToUrl + "&" + paramKey + "=" + params[paramKey];
+    paramsToUrl = `${paramsToUrl}&${paramKey}=${params[paramKey]}`;
   });
-  let endpoint = baseEndpoint + "?api_key=" + apiKey + paramsToUrl;
-  let response = await fetch(endpoint);
-  let data = await response.json();
+  const endpoint = `${baseEndpoint}?api_key=${apiKey}${paramsToUrl}`;
+  const response = await fetch(endpoint);
+  const data = await response.json();
 
   return data;
 };
 
 const getTrendingGifs = async (offset) => {
-  let baseEndpoint = "http://api.giphy.com/v1/gifs/trending";
-  let limit = 6;
-  let params = {"limit": limit, "offset": offset};
-  let results = await getAPIEndPoint(baseEndpoint, params);
+  const baseEndpoint = 'http://api.giphy.com/v1/gifs/trending';
+  const limit = 6;
+  const params = { limit, offset };
+  const results = await getAPIEndPoint(baseEndpoint, params);
 
   return results.data;
 };
 
 const getSearchGifs = async (offset, searchString) => {
-  let baseEndPoint = "http://api.giphy.com/v1/gifs/search";
-  let limit = 6;
-  let params = {"q": searchString, "limit": limit, "offset": offset};
-  let results = await getAPIEndPoint(baseEndPoint, params);
+  const baseEndPoint = 'http://api.giphy.com/v1/gifs/search';
+  const limit = 6;
+  const params = { q: searchString, limit, offset };
+  const results = await getAPIEndPoint(baseEndPoint, params);
 
   return results.data;
 };
