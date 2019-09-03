@@ -1,6 +1,6 @@
-import { TextField } from "@material-ui/core";
-import styled from "styled-components";
-import React from "react";
+import { TextField } from '@material-ui/core';
+import styled from 'styled-components';
+import React from 'react';
 
 const StyledTextField = styled(TextField)`
   && {
@@ -10,14 +10,14 @@ const StyledTextField = styled(TextField)`
       border-width: 2px;
     }
   }
-`
+`;
 
 export default function SearchBar(props) {
   return (
     <StyledTextField
       variant="outlined"
-      onChange={e => props.searchHandler(e.target.value)}
+      onChange={(e) => props.searchHandler(e.target.value)}
       error={props.error}
     />
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { Button } from "@material-ui/core";
-import styled from "styled-components";
-import React from "react";
+import { Button } from '@material-ui/core';
+import styled from 'styled-components';
+import React from 'react';
 
 const StyledButton = styled(Button)`
   && {
@@ -18,5 +18,5 @@ export default function SearchButton(props) {
     >
       Search
     </StyledButton>
-  )
+  );
 }
