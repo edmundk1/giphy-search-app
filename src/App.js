@@ -4,7 +4,7 @@ import { Divider, Typography } from '@material-ui/core';
 import FlexContainer from './components/common/FlexContainer';
 import GifsContainer from './components/gifs/GifsContainer';
 import SearchContainer from './components/search/SearchContainer';
-import LoadMoreButton from './components/LoadMoreButton';
+import LoadMoreButton from './components/loadmore/LoadMoreButton';
 import { getTrendingGifs, getSearchGifs } from './managers/APIManager';
 import LoadIndicatorComponent from './components/loadmore/LoadIndicatorComponent';
 
@@ -32,6 +32,7 @@ function App() {
   const [displayedGifs, setDiplayedGifs] = useState([]);
   const [currentOffset, setCurrentOffset] = useState(0);
   const [currentSearch, setCurrentSearch] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
 
   const incrementOffset = () => {
     const increment = 6;
@@ -50,14 +51,20 @@ function App() {
   };
 
   const handleLoadMore = async () => {
+    setIsSearching(true);
     const additionalGifs = await getSearchGifs(currentOffset, currentSearch);
-    const tempDisplayedGifs = displayedGifs.concat(additionalGifs);
-    setDiplayedGifs(tempDisplayedGifs);
 
-    incrementOffset();
+    if (additionalGifs.length === 6) {
+      setIsSearching(false);
+      const tempDisplayedGifs = displayedGifs.concat(additionalGifs);
+      setDiplayedGifs(tempDisplayedGifs);
+      incrementOffset();
+    }
   };
 
-  const MoreButton = currentSearch ? (<LoadMoreButton clickHandler={handleLoadMore} />) : null;
+  const MoreButton = (currentSearch && !isSearching) ? (<LoadMoreButton clickHandler={handleLoadMore} />) : null;
+
+  const LoadIndicator = isSearching ? (<LoadIndicatorComponent />) : null;
 
   useEffect(() => {
     const getInitialTrendingGifs = async () => {
@@ -78,7 +85,7 @@ function App() {
       <SearchContainer handleSearch={handleSearch} />
       <GifsContainer gifArray={displayedGifs} />
       {MoreButton}
-      <LoadIndicatorComponent />
+      {LoadIndicator}
     </AppContainer>
   );
 }
