@@ -55,7 +55,7 @@ function App() {
     const additionalGifs = await getSearchGifs(currentOffset, currentSearch);
 
     if (additionalGifs.length === 6) {
-      setIsSearching(false)
+      setIsSearching(false);
       const tempDisplayedGifs = displayedGifs.concat(additionalGifs);
       setDiplayedGifs(tempDisplayedGifs);
       incrementOffset();
