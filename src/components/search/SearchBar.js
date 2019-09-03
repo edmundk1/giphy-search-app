@@ -14,6 +14,10 @@ const StyledTextField = styled(TextField)`
 
 export default function SearchBar(props) {
   return (
-    <StyledTextField variant={"outlined"} onChange={e => props.searchHandler(e.target.value)}/>
+    <StyledTextField
+      variant={"outlined"}
+      onChange={e => props.searchHandler(e.target.value)}
+      error={props.error}
+    />
   )
 }

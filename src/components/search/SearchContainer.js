@@ -11,19 +11,36 @@ const SearchComponentsContainer = styled(FlexContainer)`
 
 export default function SearchContainer(props) {
   const [searchString, setSearchString] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  const isSearchValid = (search) => {
+    const whiteSpaceRegex = new RegExp("^\\s+$");
+    const whiteSpaceRemovedStr = search.replace(whiteSpaceRegex, "");
+    return whiteSpaceRemovedStr.length > 0
+  };
 
   const handleSearchChange = (search) => {
     setSearchString(search);
   };
 
   const handleClick = () => {
-    props.handleSearch(searchString);
+    let isValid = isSearchValid(searchString);
+    if (isValid) {
+      setIsError(false);
+      props.handleSearch(searchString);
+    } else {
+      setIsError(true);
+    }
   };
 
 
   return (
     <SearchComponentsContainer>
-      <SearchBar value={searchString} searchHandler={handleSearchChange} />
+      <SearchBar
+        value={searchString}
+        searchHandler={handleSearchChange}
+        error={isError}
+      />
       <SearchButton clickHandler={handleClick} />
     </SearchComponentsContainer>
   )
