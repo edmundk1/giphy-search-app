@@ -5,6 +5,7 @@ import React from "react";
 const StyledButton = styled(Button)`
   && {
     width: 20%;
+    min-width: fit-content;
   }
 `;
 

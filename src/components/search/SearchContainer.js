@@ -7,6 +7,7 @@ import SearchButton from "./SearchButton";
 
 const SearchComponentsContainer = styled(FlexContainer)`
   width: 100%;
+  height: fit-content;
 `;
 
 export default function SearchContainer(props) {
