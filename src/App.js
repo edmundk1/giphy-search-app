@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Typography } from '@material-ui/core'
+import { Divider, Typography } from '@material-ui/core'
 import './App.css';
 import FlexContainer from "./components/common/FlexContainer";
 import GifsContainer from "./components/gifs/GifsContainer";
@@ -10,14 +10,20 @@ import { getTrendingGifs, getSearchGifs } from "./managers/APIManager";
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
-  width: 80%;
+  width: 100%;
   align-items: center;  
-  //background-image: linear-gradient(white, lightblue);
-`
+`;
 
 const PaddedTypography = styled(Typography)`
   && {
     padding: 15px;
+  }
+`;
+
+const BottomGutterDivider = styled(Divider)`
+  && {
+    width: 90%;
+    margin-bottom: 20px;
   }
 `;
 
@@ -68,6 +74,7 @@ function App() {
       <PaddedTypography variant="h2">
         Giphy Searcher
       </PaddedTypography>
+      <BottomGutterDivider />
       <SearchContainer handleSearch={handleSearch} />
       <GifsContainer gifArray={displayedGifs}/>
       {MoreButton}
