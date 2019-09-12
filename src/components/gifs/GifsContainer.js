@@ -6,8 +6,9 @@ import GifComponent from './GifComponent';
 
 const StyledContainer = styled(FlexContainer)`
   margin: 10px;
-  width: 70%;
+  width: 80%;
   min-width: 370px;
+  max-width: 1200px;
 `;
 
 export default function GifsContainer(props) {
