@@ -5,7 +5,7 @@ import FlexContainer from './components/common/FlexContainer';
 import GifsContainer from './components/gifs/GifsContainer';
 import SearchContainer from './components/search/SearchContainer';
 import LoadMoreButton from './components/loadmore/LoadMoreButton';
-import { getTrendingGifs, getSearchGifs } from './managers/APIManager';
+import { getTrendingGifs, getSearchGifs, numResults } from './managers/APIManager';
 import LoadIndicatorComponent from './components/loadmore/LoadIndicatorComponent';
 
 const AppContainer = styled(FlexContainer)`
@@ -35,7 +35,7 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
 
   const incrementOffset = () => {
-    const increment = 6;
+    const increment = numResults;
     const tempOffset = currentOffset + increment;
     setCurrentOffset(tempOffset);
   };
@@ -54,7 +54,7 @@ function App() {
     setIsSearching(true);
     const additionalGifs = await getSearchGifs(currentOffset, currentSearch);
 
-    if (additionalGifs.length === 6) {
+    if (additionalGifs.length === numResults) {
       setIsSearching(false);
       const tempDisplayedGifs = displayedGifs.concat(additionalGifs);
       setDiplayedGifs(tempDisplayedGifs);

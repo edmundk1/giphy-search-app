@@ -1,4 +1,5 @@
 const apiKey = 'aXvyXMehTPDEv8CqiRnyhmVwbTwCaX0M';
+const numResults = 18;
 
 const getAPIEndPoint = async (baseEndpoint, params) => {
   const paramKeys = Object.keys(params);
@@ -15,7 +16,7 @@ const getAPIEndPoint = async (baseEndpoint, params) => {
 
 const getTrendingGifs = async (offset) => {
   const baseEndpoint = 'http://api.giphy.com/v1/gifs/trending';
-  const limit = 6;
+  const limit = numResults;
   const params = { limit, offset };
   const results = await getAPIEndPoint(baseEndpoint, params);
 
@@ -24,11 +25,11 @@ const getTrendingGifs = async (offset) => {
 
 const getSearchGifs = async (offset, searchString) => {
   const baseEndPoint = 'http://api.giphy.com/v1/gifs/search';
-  const limit = 6;
+  const limit = numResults;
   const params = { q: searchString, limit, offset };
   const results = await getAPIEndPoint(baseEndPoint, params);
 
   return results.data;
 };
 
-export { getTrendingGifs, getSearchGifs };
+export { getTrendingGifs, getSearchGifs, numResults };
