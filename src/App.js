@@ -7,6 +7,7 @@ import SearchContainer from './components/search/SearchContainer';
 import LoadMoreButton from './components/loadmore/LoadMoreButton';
 import { getTrendingGifs, getSearchGifs, numResults } from './managers/APIManager';
 import LoadIndicatorComponent from './components/loadmore/LoadIndicatorComponent';
+import GifModalComponent from './components/gifs/GifModalComponent';
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
@@ -33,6 +34,7 @@ function App() {
   const [currentOffset, setCurrentOffset] = useState(0);
   const [currentSearch, setCurrentSearch] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const [gifModalSrc, setGifModalSrc] = useState('');
 
   const incrementOffset = () => {
     const increment = numResults;
@@ -62,6 +64,22 @@ function App() {
     }
   };
 
+  const handleGifClicked = (gifSrc) => {
+    setGifModalSrc(gifSrc);
+  };
+
+  const handleModalClosed = () => {
+    setGifModalSrc('');
+  };
+
+  const GifModal = gifModalSrc !== ''
+    ? (
+      <GifModalComponent
+        gifSrc={gifModalSrc}
+        handleModalClosed={handleModalClosed}
+      />
+    ) : null;
+
   const MoreButton = (currentSearch && !isSearching) ? (<LoadMoreButton clickHandler={handleLoadMore} />) : null;
 
   const LoadIndicator = isSearching ? (<LoadIndicatorComponent />) : null;
@@ -83,9 +101,16 @@ function App() {
       </PaddedTypography>
       <BottomGutterDivider />
       <SearchContainer handleSearch={handleSearch} />
-      <GifsContainer gifArray={displayedGifs} />
-      {MoreButton}
-      {LoadIndicator}
+      <GifsContainer
+        gifArray={displayedGifs}
+        handleGifClicked={handleGifClicked}
+      />
+      { GifModal }
+      { MoreButton }
+      { LoadIndicator }
+      <PaddedTypography variant="h6">
+        Footer
+      </PaddedTypography>
     </AppContainer>
   );
 }

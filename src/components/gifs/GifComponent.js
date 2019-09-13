@@ -19,7 +19,10 @@ const StyledImg = styled.img`
 export default function GifComponent(props) {
   return (
     <StyledComponentContainer>
-      <StyledImg src={props.gifSrc} />
+      <StyledImg
+        src={props.gifSrc}
+        onClick={handleClick}
+      />
     </StyledComponentContainer>
   );
 }
