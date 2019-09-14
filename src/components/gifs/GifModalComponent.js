@@ -1,5 +1,5 @@
-import { IconButton, Modal } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import {IconButton, Modal, TextField, Typography} from '@material-ui/core';
+import { Close, FileCopy } from '@material-ui/icons';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -19,9 +19,11 @@ const ModalContainer = styled(FlexContainer)`
 const ImgContainer = styled(FlexContainer)`
   width: fit-content;
   height: fit-content;
+  border-radius: 4px;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
+  align-items: center;
 `;
 
 const ButtonContainer = styled(FlexContainer)`
@@ -36,7 +38,35 @@ const GutteredIconButton = styled(IconButton)`
 
 const GutteredImg = styled.img`
   width: 600px;
-  margin: 0 20px 70px 20px;
+  margin: 0 20px;
+`;
+
+const LinkContainer = styled(FlexContainer)`
+  flex: auto;
+  //width: 80%;
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+`;
+
+const TypographyContainer = styled(FlexContainer)`
+  flex: auto;
+  width: 10%;
+  min-width: fit-content;
+`;
+
+const GutteredTypography = styled(Typography)`
+  && {
+    margin: 0 20px;
+  }
+`;
+
+const SetWidthTextField = styled(TextField)`
+  && {
+    //width: 60%;
+    width: 250px;
+    margin: 10px 0;    
+  }
 `;
 
 export default function GifModalComponent(props) {
@@ -63,6 +93,21 @@ export default function GifModalComponent(props) {
             </GutteredIconButton>
           </ButtonContainer>
           <GutteredImg src={props.gifSrc} />
+          <LinkContainer>
+            <TypographyContainer>
+              <GutteredTypography>
+                Link:
+              </GutteredTypography>
+            </TypographyContainer>
+            <SetWidthTextField
+              defaultValue={props.gifSrc}
+              variant="outlined"
+              InputProps={{ readOnly: true }}
+            />
+            <IconButton>
+              <FileCopy />
+            </IconButton>
+          </LinkContainer>
         </ImgContainer>
       </ModalContainer>
     </ScrollableModal>
