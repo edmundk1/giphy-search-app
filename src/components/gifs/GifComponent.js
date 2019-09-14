@@ -17,6 +17,10 @@ const StyledImg = styled.img`
 `;
 
 export default function GifComponent(props) {
+  const handleClick = () => {
+    props.handleGifClicked(props.gifSrc);
+  };
+
   return (
     <StyledComponentContainer>
       <StyledImg
