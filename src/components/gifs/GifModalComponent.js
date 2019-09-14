@@ -25,9 +25,13 @@ const ImgContainer = styled(FlexContainer)`
 `;
 
 const ButtonContainer = styled(FlexContainer)`
-  width: fit-content;
+  flex: auto;
+  width: 100%;
   height: fit-content;
-  padding: 5px;
+`;
+
+const GutteredIconButton = styled(IconButton)`
+  margin: 5px;
 `;
 
 const GutteredImg = styled.img`
@@ -54,9 +58,9 @@ export default function GifModalComponent(props) {
       <ModalContainer>
         <ImgContainer column>
           <ButtonContainer>
-            <IconButton onClick={handleClose}>
+            <GutteredIconButton onClick={handleClose}>
               <Close />
-            </IconButton>
+            </GutteredIconButton>
           </ButtonContainer>
           <GutteredImg src={props.gifSrc} />
         </ImgContainer>
