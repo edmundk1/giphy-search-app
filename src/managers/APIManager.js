@@ -1,5 +1,7 @@
 const apiKey = 'aXvyXMehTPDEv8CqiRnyhmVwbTwCaX0M';
 const defaultNumResults = 18;
+const intArray = [1, 2, 3, 4];
+const numResultsArray = intArray.map((intVal) => intVal * defaultNumResults);
 
 const getAPIEndPoint = async (baseEndpoint, params) => {
   const paramKeys = Object.keys(params);
@@ -32,4 +34,4 @@ const getSearchGifs = async (offset, numResultsPerPage, searchString) => {
   return results;
 };
 
-export { getTrendingGifs, getSearchGifs, defaultNumResults };
+export { getTrendingGifs, getSearchGifs, defaultNumResults, numResultsArray };

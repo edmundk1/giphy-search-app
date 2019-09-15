@@ -1,11 +1,7 @@
 import { TablePagination } from '@material-ui/core';
 import React from 'react';
 
-import { defaultNumResults } from "../../managers/APIManager";
-
-const intArray = [1, 2, 3, 4];
-
-const numResultsOptions = intArray.map((intVal) => intVal * defaultNumResults);
+import { numResultsArray } from '../../managers/APIManager';
 
 export default function PaginationNavComponent(props) {
   const handlePageChange = (e, newPage) => {
@@ -28,7 +24,7 @@ export default function PaginationNavComponent(props) {
             onChangeRowsPerPage={handleResultsPerPageChange}
             page={props.pageNum}
             rowsPerPage={props.numResultsPerPage}
-            rowsPerPageOptions={numResultsOptions}
+            rowsPerPageOptions={numResultsArray}
           />
         </tr>
       </tbody>
