@@ -1,19 +1,35 @@
-import { Divider, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import {Divider, Modal, Typography} from '@material-ui/core';
 
 import FlexContainer from './components/common/FlexContainer';
 import GifsContainer from './components/gifs/GifsContainer';
 import SearchContainer from './components/search/SearchContainer';
 import { getTrendingGifs, getSearchGifs, defaultNumResults } from './managers/APIManager';
 import LoadIndicatorComponent from './components/loadMore/LoadIndicatorComponent';
-import GifModalComponent from './components/gifs/gifModal/GifModalComponent';
+const GifModalComponent = lazy(() => import('./components/gifs/gifModal/GifModalComponent'));
 import PaginationNavComponent from './components/loadMore/PaginationNavComponent';
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
   width: 100%;
   align-items: center;  
+`;
+
+const FallbackModalContainer = styled(FlexContainer)`
+  flex: auto;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoadIndicatorContainer = styled(FlexContainer)`
+  height: 100px;
+  width: 100px;
+  border-radius: 4px;
+  align-items: center;
+  background-color: white;
 `;
 
 const PaddedTypography = styled(Typography)`
@@ -28,6 +44,16 @@ const BottomGutterDivider = styled(Divider)`
     margin-bottom: 20px;
   }
 `;
+
+const GifModalFallback = () => (
+  <Modal open>
+    <FallbackModalContainer>
+      <LoadIndicatorContainer>
+        <LoadIndicatorComponent />
+      </LoadIndicatorContainer>
+    </FallbackModalContainer>
+  </Modal>
+);
 
 function App() {
   const initialPage = 0;
@@ -120,6 +146,9 @@ function App() {
         gifArray={displayedGifs}
         handleGifClicked={handleGifClicked}
       />
+      <Suspense fallback={<GifModalFallback />}>
+        { GifModal }
+      </Suspense>
       { GifModal }
       { PaginationComponent }
       { LoadIndicator }
