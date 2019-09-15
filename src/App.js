@@ -1,4 +1,4 @@
-import  {Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -40,10 +40,6 @@ function App() {
   const [gifModalSrc, setGifModalSrc] = useState('');
   const [numResultsPerPage, setNumResultsPerPage] = useState(defaultNumResults);
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
   const handleSearch = async (search) => {
     setTotalResults(initialTotalResults);
     setCurrentPage(initialPage);
@@ -54,6 +50,14 @@ function App() {
 
     setTotalResults(searchGifsPagination.total_count);
     setDiplayedGifs(searchGifsData);
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleResultsPerPageChange = (newNumResultsPerPage) => {
+    setNumResultsPerPage(newNumResultsPerPage);
   };
 
   const handleGifClicked = (gifSrc) => {
@@ -72,13 +76,19 @@ function App() {
       />
     ) : null;
 
+  useEffect(() => {
+    handleSearch(currentSearch);
+  }, [numResultsPerPage]);
+
   const PaginationComponent = (currentSearch) ? (
     <PaginationNavComponent
+      count={totalResults}
       from={currentPage * defaultNumResults}
       to={(currentPage + 1) * defaultNumResults}
-      pageNum={currentPage}
-      count={totalResults}
       handlePageChange={handlePageChange}
+      handleResultsPerPageChange={handleResultsPerPageChange}
+      pageNum={currentPage}
+      numResultsPerPage={numResultsPerPage}
     />
     ) : null;
 

@@ -1,6 +1,5 @@
 import { TablePagination } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 import { defaultNumResults } from "../../managers/APIManager";
 
@@ -14,8 +13,8 @@ export default function PaginationNavComponent(props) {
   };
 
   const handleResultsPerPageChange = (e) => {
-    console.log('results per page change');
-    console.log(e.target.value);
+    const numResultsPerPage = e.target.value;
+    props.handleResultsPerPageChange(numResultsPerPage);
   };
 
   return (
@@ -23,13 +22,13 @@ export default function PaginationNavComponent(props) {
       <tbody>
         <tr>
           <TablePagination
+            count={props.count}
             labelRowsPerPage="Results per page:"
             onChangePage={handlePageChange}
-            page={props.pageNum}
-            rowsPerPage={defaultNumResults}
             onChangeRowsPerPage={handleResultsPerPageChange}
+            page={props.pageNum}
+            rowsPerPage={props.numResultsPerPage}
             rowsPerPageOptions={numResultsOptions}
-            count={props.count}
           />
         </tr>
       </tbody>
