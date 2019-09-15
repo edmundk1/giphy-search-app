@@ -3,7 +3,7 @@ import { Close, FileCopy } from '@material-ui/icons';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import FlexContainer from '../common/FlexContainer';
+import FlexContainer from '../../common/FlexContainer';
 
 const ScrollableModal = styled(Modal)`
   overflow: scroll;
@@ -72,9 +72,9 @@ const SetWidthTextField = styled(TextField)`
   }
 `;
 
-const LeftGutteredIconButton = styled(IconButton)`
+const LeftRightGutteredIconButton = styled(IconButton)`
   && {
-    margin-left: 10px;
+    margin: 0 10px;
   }
 `;
 
@@ -120,9 +120,9 @@ export default function GifModalComponent(props) {
               InputProps={{ readOnly: true }}
               inputRef={linkRef}
             />
-            <LeftGutteredIconButton onClick={handleCopy}>
+            <LeftRightGutteredIconButton onClick={handleCopy}>
               <FileCopy />
-            </LeftGutteredIconButton>
+            </LeftRightGutteredIconButton>
           </LinkContainer>
         </ImgContainer>
       </ModalContainer>
