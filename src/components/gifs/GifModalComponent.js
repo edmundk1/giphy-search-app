@@ -37,7 +37,10 @@ const GutteredIconButton = styled(IconButton)`
 `;
 
 const GutteredImg = styled.img`
-  width: 600px;
+  max-width: 600px;
+  max-height: 600px;
+  width: auto;
+  height: auto;
   margin: 0 20px;
 `;
 
