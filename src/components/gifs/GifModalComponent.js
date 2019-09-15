@@ -1,6 +1,6 @@
-import {IconButton, Modal, TextField, Typography} from '@material-ui/core';
+import { IconButton, Modal, TextField, Typography } from '@material-ui/core';
 import { Close, FileCopy } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import FlexContainer from '../common/FlexContainer';
@@ -65,12 +65,19 @@ const SetWidthTextField = styled(TextField)`
   && {
     //width: 60%;
     width: 250px;
-    margin: 10px 0;    
+    margin: 10px 0;
+  }
+`;
+
+const LeftGutteredIconButton = styled(IconButton)`
+  && {
+    margin-left: 10px;
   }
 `;
 
 export default function GifModalComponent(props) {
   const [isOpen, setIsOpen] = useState(true);
+  const linkRef = useRef(null);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -81,6 +88,11 @@ export default function GifModalComponent(props) {
     if (e.key === 'Enter') {
       handleClose();
     }
+  };
+
+  const handleCopy = () => {
+    linkRef.current.select();
+    document.execCommand('copy');
   };
 
   return (
@@ -103,10 +115,11 @@ export default function GifModalComponent(props) {
               defaultValue={props.gifSrc}
               variant="outlined"
               InputProps={{ readOnly: true }}
+              inputRef={linkRef}
             />
-            <IconButton>
+            <LeftGutteredIconButton onClick={handleCopy}>
               <FileCopy />
-            </IconButton>
+            </LeftGutteredIconButton>
           </LinkContainer>
         </ImgContainer>
       </ModalContainer>
