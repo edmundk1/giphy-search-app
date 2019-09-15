@@ -41,15 +41,17 @@ function App() {
   const [numResultsPerPage, setNumResultsPerPage] = useState(defaultNumResults);
 
   const handleSearch = async (search) => {
-    setTotalResults(initialTotalResults);
-    setCurrentPage(initialPage);
-    setCurrentSearch(search);
-    const searchGifsResponse = await getSearchGifs(initialPage, numResultsPerPage, search);
-    const searchGifsData = await searchGifsResponse.data;
-    const searchGifsPagination = await searchGifsResponse.pagination;
+    if (search.length > 0) {
+      setTotalResults(initialTotalResults);
+      setCurrentPage(initialPage);
+      setCurrentSearch(search);
+      const searchGifsResponse = await getSearchGifs(initialPage, numResultsPerPage, search);
+      const searchGifsData = await searchGifsResponse.data;
+      const searchGifsPagination = await searchGifsResponse.pagination;
 
-    setTotalResults(searchGifsPagination.total_count);
-    setDiplayedGifs(searchGifsData);
+      setTotalResults(searchGifsPagination.total_count);
+      setDiplayedGifs(searchGifsData);
+    }
   };
 
   const handlePageChange = (newPage) => {
@@ -76,10 +78,6 @@ function App() {
       />
     ) : null;
 
-  useEffect(() => {
-    handleSearch(currentSearch);
-  }, [numResultsPerPage]);
-
   const PaginationComponent = (currentSearch) ? (
     <PaginationNavComponent
       count={totalResults}
@@ -103,6 +101,10 @@ function App() {
 
     getInitialTrendingGifs();
   }, []);
+
+  useEffect(() => {
+    handleSearch(currentSearch);
+  }, [numResultsPerPage]);
 
   return (
     <AppContainer column>
