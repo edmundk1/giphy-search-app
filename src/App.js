@@ -150,7 +150,6 @@ function App() {
       <Suspense fallback={<GifModalFallback />}>
         { GifModal }
       </Suspense>
-      { GifModal }
       { PaginationComponent }
       { LoadIndicator }
       <PaddedTypography variant="h6">
