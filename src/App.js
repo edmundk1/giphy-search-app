@@ -42,10 +42,12 @@ function App() {
 
   const handleSearch = async (search) => {
     if (search.length > 0) {
-      setTotalResults(initialTotalResults);
-      setCurrentPage(initialPage);
-      setCurrentSearch(search);
-      const searchGifsResponse = await getSearchGifs(initialPage, numResultsPerPage, search);
+      if (search !== currentSearch) {
+        setTotalResults(initialTotalResults);
+        setCurrentPage(initialPage);
+        setCurrentSearch(search);
+      }
+      const searchGifsResponse = await getSearchGifs(currentPage * numResultsPerPage, numResultsPerPage, search);
       const searchGifsData = await searchGifsResponse.data;
       const searchGifsPagination = await searchGifsResponse.pagination;
 
@@ -59,6 +61,7 @@ function App() {
   };
 
   const handleResultsPerPageChange = (newNumResultsPerPage) => {
+    setCurrentPage(initialPage);
     setNumResultsPerPage(newNumResultsPerPage);
   };
 
@@ -104,7 +107,7 @@ function App() {
 
   useEffect(() => {
     handleSearch(currentSearch);
-  }, [numResultsPerPage]);
+  }, [numResultsPerPage, currentPage]);
 
   return (
     <AppContainer column>
