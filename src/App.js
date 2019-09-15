@@ -45,9 +45,11 @@ function App() {
   const handleSearch = async (search) => {
     setCurrentOffset(initialOffset);
     setCurrentSearch(search);
-    const searchGifs = await getSearchGifs(initialOffset, search);
+    const searchGifsResponse = await getSearchGifs(initialOffset, search);
+    const searchGifsData = searchGifsResponse.data;
+    const searchGifsPagination = searchGifsResponse.pagination;
 
-    setDiplayedGifs(searchGifs);
+    setDiplayedGifs(searchGifsData);
 
     incrementOffset();
   };

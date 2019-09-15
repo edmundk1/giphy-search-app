@@ -29,7 +29,7 @@ const getSearchGifs = async (offset, searchString) => {
   const params = { q: searchString, limit, offset };
   const results = await getAPIEndPoint(baseEndPoint, params);
 
-  return results.data;
+  return results;
 };
 
 export { getTrendingGifs, getSearchGifs, numResults };
