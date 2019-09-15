@@ -7,8 +7,9 @@ import GifsContainer from './components/gifs/GifsContainer';
 import SearchContainer from './components/search/SearchContainer';
 import { getTrendingGifs, getSearchGifs, defaultNumResults } from './managers/APIManager';
 import LoadIndicatorComponent from './components/loadMore/LoadIndicatorComponent';
-const GifModalComponent = lazy(() => import('./components/gifs/gifModal/GifModalComponent'));
 import PaginationNavComponent from './components/loadMore/PaginationNavComponent';
+
+const GifModalComponent = lazy(() => import('./components/gifs/gifModal/GifModalComponent'));
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
