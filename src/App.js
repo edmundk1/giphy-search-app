@@ -1,13 +1,14 @@
+import  {Divider, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Divider, Typography } from '@material-ui/core';
+
 import FlexContainer from './components/common/FlexContainer';
 import GifsContainer from './components/gifs/GifsContainer';
 import SearchContainer from './components/search/SearchContainer';
-import LoadMoreButton from './components/loadMore/LoadMoreButton';
-import { getTrendingGifs, getSearchGifs, numResults } from './managers/APIManager';
+import { getTrendingGifs, getSearchGifs, defaultNumResults } from './managers/APIManager';
 import LoadIndicatorComponent from './components/loadMore/LoadIndicatorComponent';
 import GifModalComponent from './components/gifs/gifModal/GifModalComponent';
+import PaginationNavComponent from './components/loadMore/PaginationNavComponent';
 
 const AppContainer = styled(FlexContainer)`
   min-width: 500px;
@@ -29,41 +30,30 @@ const BottomGutterDivider = styled(Divider)`
 `;
 
 function App() {
-  const initialOffset = 0;
+  const initialPage = 0;
+  const initialTotalResults = 0;
   const [displayedGifs, setDiplayedGifs] = useState([]);
-  const [currentOffset, setCurrentOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [currentSearch, setCurrentSearch] = useState('');
+  const [totalResults, setTotalResults] = useState(initialTotalResults);
   const [isSearching, setIsSearching] = useState(false);
   const [gifModalSrc, setGifModalSrc] = useState('');
+  const [numResultsPerPage, setNumResultsPerPage] = useState(defaultNumResults);
 
-  const incrementOffset = () => {
-    const increment = numResults;
-    const tempOffset = currentOffset + increment;
-    setCurrentOffset(tempOffset);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
   const handleSearch = async (search) => {
-    setCurrentOffset(initialOffset);
+    setTotalResults(initialTotalResults);
+    setCurrentPage(initialPage);
     setCurrentSearch(search);
-    const searchGifsResponse = await getSearchGifs(initialOffset, search);
-    const searchGifsData = searchGifsResponse.data;
-    const searchGifsPagination = searchGifsResponse.pagination;
+    const searchGifsResponse = await getSearchGifs(initialPage, numResultsPerPage, search);
+    const searchGifsData = await searchGifsResponse.data;
+    const searchGifsPagination = await searchGifsResponse.pagination;
 
+    setTotalResults(searchGifsPagination.total_count);
     setDiplayedGifs(searchGifsData);
-
-    incrementOffset();
-  };
-
-  const handleLoadMore = async () => {
-    setIsSearching(true);
-    const additionalGifs = await getSearchGifs(currentOffset, currentSearch);
-
-    if (additionalGifs.length === numResults) {
-      setIsSearching(false);
-      const tempDisplayedGifs = displayedGifs.concat(additionalGifs);
-      setDiplayedGifs(tempDisplayedGifs);
-      incrementOffset();
-    }
   };
 
   const handleGifClicked = (gifSrc) => {
@@ -82,13 +72,21 @@ function App() {
       />
     ) : null;
 
-  const MoreButton = (currentSearch && !isSearching) ? (<LoadMoreButton clickHandler={handleLoadMore} />) : null;
+  const PaginationComponent = (currentSearch) ? (
+    <PaginationNavComponent
+      from={currentPage * defaultNumResults}
+      to={(currentPage + 1) * defaultNumResults}
+      pageNum={currentPage}
+      count={totalResults}
+      handlePageChange={handlePageChange}
+    />
+    ) : null;
 
   const LoadIndicator = isSearching ? (<LoadIndicatorComponent />) : null;
 
   useEffect(() => {
     const getInitialTrendingGifs = async () => {
-      const initialTrendingGifs = await getTrendingGifs(initialOffset);
+      const initialTrendingGifs = await getTrendingGifs(initialPage);
 
       setDiplayedGifs(initialTrendingGifs);
     };
@@ -108,7 +106,7 @@ function App() {
         handleGifClicked={handleGifClicked}
       />
       { GifModal }
-      { MoreButton }
+      { PaginationComponent }
       { LoadIndicator }
       <PaddedTypography variant="h6">
         Footer
