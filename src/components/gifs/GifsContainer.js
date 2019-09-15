@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 
 import FlexContainer from '../common/FlexContainer';
 import GifComponent from './GifComponent';
@@ -17,7 +17,8 @@ export default function GifsContainer(props) {
       {props.gifArray.map((gif) => (
         <GifComponent
           key={gif.id}
-          gifSrc={gif.images.downsized.url}
+          gifSrc={gif.images.downsized_large.url}
+          handleGifClicked={props.handleGifClicked}
         />
       ))}
     </StyledContainer>
