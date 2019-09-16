@@ -134,6 +134,8 @@ function App() {
 
   useEffect(() => {
     handleSearch(currentSearch);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numResultsPerPage, currentPage]);
 
   return (
